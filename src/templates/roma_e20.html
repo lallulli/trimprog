@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Roma e20</title>
+	<style type="text/css">
+	body {
+		font-family: "Droid Sans", "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+		font-size:12px;
+	}
+
+	table {
+		text-align:left;
+		border-collapse:collapse;
+		border:2px solid #333333;
+		padding:16px;
+		width: 100%;
+		margin-bottom: 16px;
+	}
+	
+	th {
+		font-weight:bolder;
+		font-size:14px;
+		background-color:#333333;
+		color: white;
+		/*border-bottom:1px dashed #69c;*/
+		padding:12px 12px;
+		text-align: center;
+	}
+	
+	td {
+		color:#555555;
+		padding:10px 10px;
+		text-align: center;
+	}
+	
+	.data {
+		font-weight:bolder;
+		font-size:14px;
+		color:#333333;
+		/*background-color: #E3E3E3;*/
+		text-align: right;
+		border: 0px;
+		/*border-right: 1.5px;*/
+		/*border-style: solid;*/
+		/*border-color: black;*/
+		background-color: #888888;
+		color: white;
+	}
+	
+	.datah {
+		width: 5%;
+		font-size: 24px;
+		/*text-align: right;*/
+	}
+	
+	.notes {
+		background-color: #E3E3E3;
+		border: 0px;
+		/*border-left: 1.5px;*/
+		/*border-style: solid;*/
+		text-align: left;
+	}
+	
+	tbody tr:hover td {
+		color:#333333;
+		background:#d0dafd;
+	}
+	
+	.notesh {
+		width: 14%;
+		/*text-align: left;*/
+	}
+	.l {
+		color: #777777;
+		border-radius: 4px;
+		border-style: dotted;
+		border-width: 0.8px;
+		border-color: #777777;
+	}
+	
+	.m {
+		background-color: #BABABA;
+		color: black;
+		border-radius: 4px;
+		border-style: solid;
+		border-width: 0.8px;
+		border-color: #777777;
+	}
+	
+	.u {
+		background-color: #444444;
+		color: white;
+		font-weight: bold;
+		border-radius: 4px;
+		border-style: solid;
+		border-width: 0.8px;
+		border-color: #000000;
+	}
+	
+	.infra {
+		font-style: oblique;
+	}
+	
+	.infra * {
+		font-weight: normal;
+	}
+	
+	.fest * {
+		font-weight: bold;
+	}
+	
+	.c1 {
+		background-color: white;
+	}
+	
+	.c2 {
+		background-color: #E3E3E3;
+	}
+	
+	.eom {
+		border-top:1.4px dashed #555555;
+	}
+	
+	.unita {
+		width: 4%;
+	}
+
+	.aggiornamento {
+		margin-top: -14px;
+		float: right;
+	}
+
+	.logo {
+		float: right;
+		height: 90px;
+		margin-top: -10px;
+	}
+
+	.title-t {
+		width: 440px;
+		float: left;
+		border: 0px;
+		border-left: 10px solid #777777;
+	}
+
+	.title-sx {
+		width: 50%;
+		background-color: #E3E3E3;
+		/*color: white;*/
+		font-size: 36px;
+		font-weight: bolder;
+	}
+
+	.title-dx {
+		width: 50%;
+		/*background-color: #AAAAAA;*/
+		font-size: 24px;
+		font-weight: bold;
+		text-align: left;
+	}
+
+	.legend-t {
+		width: 245px;
+		border: 0px;
+		border-left: 3px solid #777777;
+		float: left;
+		margin-right: 10px;
+		margin-top: 10px;
+	}
+
+	.legend-sx {
+		background-color: #E3E3E3;
+		width: 30px;
+	}
+	
+	.legend-dx {
+		text-align: left;
+	}
+
+	.citation {
+		padding-top: 50px;
+		font-weight: bold;
+		text-align: right;
+	}
+
+	</style>
+</head>
+
+<body>
+	<table class="title-t">
+	<tbody>
+	<tr>
+		<td class="title-sx">
+		Roma e20
+		</td>
+		<td class="title-dx">
+		Gli eventi<br />
+		del Roma 20
+		</td>
+	</tr>
+	</tbody>
+	</table>
+
+	<img class="logo" src="logo.png" />
+
+
+	<table>
+	<thead>
+		<tr class="header">
+		<th class="datah">{{ year }}</th>
+		{% for u in units %}
+			<th class="unita">{{ u }}</th>
+		{% endfor %}
+		<th class="notesh">Genitori, Capi e Note</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for p in program %}
+		<tr class="{% if p.is_festive %}fest{% else %}infra {% endif %}{% if p.eom %} eom{% endif %}">
+			<td class="data">{{ p.formatted_date }}</td>
+			{% for u in p.programs %}
+			<td class="c1">
+				{% for a in u %}
+				<div class="{{ a.class }}">{{ a.desc }}</div>
+				{% endfor %}
+			</td>
+			{% endfor %}
+			<td class="notes">{{ p.notes }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	</table>
+
+
+	<div class="aggiornamento">
+		www.roma20.it - Aggiornato al {{ today.strftime("%d/%m/%y") }}
+	</div>
+
+	<table class="legend-t">
+		<tbody>
+		<tr>
+			<td class="legend-sx"><div class="l">L</div></td>
+			<td class="legend-dx">Libera</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx"><div class="m">½</div></td>
+			<td class="legend-dx">Mezza giornata (09:00-12:30)</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx"><div class="u">U</div></td>
+			<td class="legend-dx">Uscita</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx"><div class="u">🌜&#xFE0E;</div></td>
+			<td class="legend-dx">con Pernottamento</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx"><div class="m">►</div></td>
+			<td class="legend-dx">Vedi note</div></td>
+		</tr>
+		</tbody>
+	</table>
+
+	<table class="legend-t">
+		<tbody>
+		<tr>
+			<td class="legend-sx">CdA</td>
+			<td class="legend-dx">Consiglio di Akela/Arcobaleno</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx">Sq</td>
+			<td class="legend-dx">Squadriglia</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx">ASq</td>
+			<td class="legend-dx">Alta Squadriglia</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx">CSq</td>
+			<td class="legend-dx">Capi Squadriglia</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx">Dz</td>
+			<td class="legend-dx">Direzione</div></td>
+		</tr>
+		</tbody>
+	</table>
+
+	<table class="legend-t">
+		<tbody>
+		<tr>
+			<td class="legend-sx">G</td>
+			<td class="legend-dx">di Gruppo</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx">D</td>
+			<td class="legend-dx">di Distretto</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx">R</td>
+			<td class="legend-dx">Regionale</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx">Naz</td>
+			<td class="legend-dx">Nazionale</div></td>
+		</tr>
+		<tr>
+			<td class="legend-sx">N / Ss</td>
+			<td class="legend-dx">Noviziato / 	Scolte Semplici</div></td>
+		</tr>
+		</tbody>
+	</table>
+
+	<div class="citation">
+		“La puntualità è la più nobile forma di cortesia. L'unica qualità che non si può fingere di avere.”<br />
+	</div>
+
+
+</body>
+</body>
+</html>
