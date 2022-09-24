@@ -211,9 +211,6 @@ def create_copies(filename, number=NUMBER_OF_COPIES):
 	])
 	os.remove(pdf_n)
 
-	"""pdftk A="Roma e20.pdf" cat A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A output "Roma e20 100.pdf" """
-	"""7z a "Roma e20 100.7z" "Roma e20 100.pdf" """
-
 
 # def printToPdf(filename):
 # 	options = {
